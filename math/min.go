@@ -1,9 +1,12 @@
 package math
 
-import "github.com/zhouyusd/algorithm"
+import (
+	"github.com/zhouyusd/algorithm"
+	"golang.org/x/exp/constraints"
+)
 
 // Min 返回a和b的较小者
-func Min[T algorithm.Comparable](a, b T) (min T) {
+func Min[T constraints.Ordered](a, b T) (min T) {
 	if a > b {
 		return b
 	}

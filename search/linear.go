@@ -1,10 +1,13 @@
 package search
 
-import "github.com/zhouyusd/algorithm"
+import (
+	"github.com/zhouyusd/algorithm"
+	"golang.org/x/exp/constraints"
+)
 
 // Linear 简单线性搜索算法，在最坏情况下迭代数组的所有元素
 // 如果 x 在 a 中出现，则返回 x 在 a 中的下标，否则返回 -1 和 ErrNotFound
-func Linear[T algorithm.Comparable](a []T, x T) (int, error) {
+func Linear[T constraints.Ordered](a []T, x T) (int, error) {
 	for i, item := range a {
 		if item == x {
 			return i, nil
@@ -14,7 +17,7 @@ func Linear[T algorithm.Comparable](a []T, x T) (int, error) {
 }
 
 // LinearX 忽略 Linear error
-func LinearX[T algorithm.Comparable](a []T, x T) int {
+func LinearX[T constraints.Ordered](a []T, x T) int {
 	i, _ := Linear(a, x)
 	return i
 }

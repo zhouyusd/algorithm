@@ -1,7 +1,9 @@
 package math
 
+import "golang.org/x/exp/constraints"
+
 // Gcd 计算a和b的最大公约数
-func Gcd[T Integer](a, b T) (gcd T) {
+func Gcd[T constraints.Integer](a, b T) (gcd T) {
 	if b == 0 {
 		return a
 	}
@@ -9,7 +11,7 @@ func Gcd[T Integer](a, b T) (gcd T) {
 }
 
 // ExtGcd 计算a和b的最大公约数并求解ax+by=gcd(a,b)
-func ExtGcd[T Integer](a, b T) (gcd T, x T, y T) {
+func ExtGcd[T constraints.Integer](a, b T) (gcd T, x T, y T) {
 	if b == 0 {
 		return a, 1, 0
 	}
@@ -19,7 +21,7 @@ func ExtGcd[T Integer](a, b T) (gcd T, x T, y T) {
 }
 
 // Lcm 计算a和b的最小公倍数
-func Lcm[T Integer](a, b T) (lcm T) {
+func Lcm[T constraints.Integer](a, b T) (lcm T) {
 	if a < b {
 		a, b = b, a
 	}

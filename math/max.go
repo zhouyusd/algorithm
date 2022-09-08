@@ -1,9 +1,12 @@
 package math
 
-import "github.com/zhouyusd/algorithm"
+import (
+	"github.com/zhouyusd/algorithm"
+	"golang.org/x/exp/constraints"
+)
 
 // Max 返回a和b的较大者
-func Max[T algorithm.Comparable](a, b T) (min T) {
+func Max[T constraints.Ordered](a, b T) (min T) {
 	if a > b {
 		return a
 	}

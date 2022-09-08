@@ -1,9 +1,12 @@
 package search
 
-import "github.com/zhouyusd/algorithm"
+import (
+	"github.com/zhouyusd/algorithm"
+	"golang.org/x/exp/constraints"
+)
 
 // Binary 采用二分查找 如果 x 在 a 中出现，则返回 x 在 a 中的下标，否则返回 -1 和 ErrNotFound
-func Binary[T algorithm.Comparable](a []T, x T) (int, error) {
+func Binary[T constraints.Ordered](a []T, x T) (int, error) {
 	s, e := 0, len(a)-1
 	for s <= e {
 		mid := s + (e-s)/2
@@ -19,7 +22,7 @@ func Binary[T algorithm.Comparable](a []T, x T) (int, error) {
 }
 
 // BinaryX 忽略 Binary error
-func BinaryX[T algorithm.Comparable](a []T, x T) int {
+func BinaryX[T constraints.Ordered](a []T, x T) int {
 	i, _ := Binary(a, x)
 	return i
 }
@@ -50,7 +53,7 @@ func Binary1X[T any](a []T, x T, cmp algorithm.Comparator[T]) int {
 
 // LowerBound 返回范围[0，len（数组）-1]中不小于（即大于或等于）目标的第一个元素的索引
 // 如果未找到此类元素，则返回 -1 和 ErrNotFound
-func LowerBound[T algorithm.Comparable](a []T, x T) (int, error) {
+func LowerBound[T constraints.Ordered](a []T, x T) (int, error) {
 	s, e := 0, len(a)-1
 	for s <= e {
 		mid := s + (e-s)/2
@@ -67,7 +70,7 @@ func LowerBound[T algorithm.Comparable](a []T, x T) (int, error) {
 }
 
 // LowerBoundX 忽略 LowerBound error
-func LowerBoundX[T algorithm.Comparable](a []T, x T) int {
+func LowerBoundX[T constraints.Ordered](a []T, x T) int {
 	i, _ := LowerBound(a, x)
 	return i
 }
@@ -99,7 +102,7 @@ func LowerBound1X[T any](a []T, x T, cmp algorithm.Comparator[T]) int {
 
 // UpperBound 返回范围[lowIndex，len（数组）-1]中大于目标的第一个元素的索引
 // 如果未找到此类元素，则返回 -1 和 ErrNotFound
-func UpperBound[T algorithm.Comparable](a []T, x T) (int, error) {
+func UpperBound[T constraints.Ordered](a []T, x T) (int, error) {
 	s, e := 0, len(a)-1
 	for s <= e {
 		mid := s + (e-s)/2
@@ -116,7 +119,7 @@ func UpperBound[T algorithm.Comparable](a []T, x T) (int, error) {
 }
 
 // UpperBoundX 忽略 UpperBound error
-func UpperBoundX[T algorithm.Comparable](a []T, x T) int {
+func UpperBoundX[T constraints.Ordered](a []T, x T) int {
 	i, _ := UpperBound(a, x)
 	return i
 }

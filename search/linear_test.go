@@ -2,22 +2,23 @@ package search
 
 import (
 	"github.com/zhouyusd/algorithm"
+	"golang.org/x/exp/constraints"
 	"testing"
 )
 
-type linearArgs[T algorithm.Comparable] struct {
+type linearArgs[T constraints.Ordered] struct {
 	a []T
 	x T
 }
 
-type linearTestcase[T algorithm.Comparable] struct {
+type linearTestcase[T constraints.Ordered] struct {
 	name    string
 	args    linearArgs[T]
 	want    int
 	wantErr bool
 }
 
-func LinearRunTests[T algorithm.Comparable](t *testing.T, cases []linearTestcase[T]) {
+func LinearRunTests[T constraints.Ordered](t *testing.T, cases []linearTestcase[T]) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Linear(tt.args.a, tt.args.x)
@@ -89,7 +90,7 @@ type Linear1Testcase[T any] struct {
 	wantErr bool
 }
 
-func Linear1RunTests[T any](t *testing.T, cases []Linear1Testcase[T], cmp func(T, T) int8) {
+func Linear1RunTests[T any](t *testing.T, cases []Linear1Testcase[T], cmp algorithm.Comparator[T]) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Linear1(tt.args.a, tt.args.x, cmp)
@@ -152,13 +153,13 @@ func TestLinear1(t *testing.T) {
 			wantErr: true,
 		},
 	}
-	Linear1RunTests(t, pointCases, func(a, b point) int8 {
+	Linear1RunTests(t, pointCases, func(a, b point) int {
 		if a.x == b.x {
 			if a.y == b.y {
 				return 0
 			}
-			return int8(a.y - b.y)
+			return a.y - b.y
 		}
-		return int8(a.x - b.x)
+		return a.x - b.x
 	})
 }

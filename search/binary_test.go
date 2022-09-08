@@ -2,22 +2,23 @@ package search
 
 import (
 	"github.com/zhouyusd/algorithm"
+	"golang.org/x/exp/constraints"
 	"testing"
 )
 
-type binaryArgs[T algorithm.Comparable] struct {
+type binaryArgs[T constraints.Ordered] struct {
 	a []T
 	x T
 }
 
-type binaryTestcase[T algorithm.Comparable] struct {
+type binaryTestcase[T constraints.Ordered] struct {
 	name    string
 	args    binaryArgs[T]
 	want    int
 	wantErr bool
 }
 
-func BinaryRunTests[T algorithm.Comparable](t *testing.T, cases []binaryTestcase[T]) {
+func BinaryRunTests[T constraints.Ordered](t *testing.T, cases []binaryTestcase[T]) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Binary(tt.args.a, tt.args.x)
@@ -89,7 +90,7 @@ type Binary1Testcase[T any] struct {
 	wantErr bool
 }
 
-func Binary1RunTests[T any](t *testing.T, cases []Binary1Testcase[T], cmp func(T, T) int8) {
+func Binary1RunTests[T any](t *testing.T, cases []Binary1Testcase[T], cmp algorithm.Comparator[T]) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Binary1(tt.args.a, tt.args.x, cmp)
@@ -152,13 +153,13 @@ func TestBinary1(t *testing.T) {
 			wantErr: true,
 		},
 	}
-	Binary1RunTests(t, pointCases, func(a, b point) int8 {
+	Binary1RunTests(t, pointCases, func(a, b point) int {
 		if a.x == b.x {
 			if a.y == b.y {
 				return 0
 			}
-			return int8(a.y - b.y)
+			return a.y - b.y
 		}
-		return int8(a.x - b.x)
+		return a.x - b.x
 	})
 }
