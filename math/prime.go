@@ -1,7 +1,7 @@
 package math
 
-// IsPrime 判断n是否为素数
-func IsPrime(n int64) bool {
+// Prime 判断n是否为素数 O(sqrt(n))
+func Prime(n int64) bool {
 	if n < 2 {
 		return false
 	}

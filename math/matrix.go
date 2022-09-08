@@ -3,9 +3,9 @@ package math
 type Matrix[T Number] [][]T
 
 // DiagMatrix 创建主对角线填充 x 的方阵
-func DiagMatrix[T Number](n int, x T) (mat Matrix[T]) {
-	mat = NewMatrix[T](n, n)
-	for i := 0; i < n; i++ {
+func DiagMatrix[T Number](nDim int, x T) (mat Matrix[T]) {
+	mat = NewMatrix[T](nDim, nDim)
+	for i := 0; i < nDim; i++ {
 		mat[i][i] = x
 	}
 	return mat
@@ -77,7 +77,7 @@ func (mat Matrix[T]) MulMod(oth Matrix[T], mod int64) (mulMod Matrix[int64]) {
 
 // Pow 计算矩阵 mat^n
 // 若 mat 不是方阵，返回 nil 和 ErrSquareMatrix
-func (mat Matrix[T]) Pow(n int) (pow Matrix[T], err error) {
+func (mat Matrix[T]) Pow(n int64) (pow Matrix[T], err error) {
 	xDim, yDim := mat.XDim(), mat.YDim()
 	if xDim != yDim {
 		return nil, ErrSquareMatrix
@@ -96,7 +96,7 @@ func (mat Matrix[T]) Pow(n int) (pow Matrix[T], err error) {
 
 // PowMod 计算矩阵 mat^n%mod
 // 若 mat 不是方阵，返回 nil 和 ErrSquareMatrix
-func (mat Matrix[T]) PowMod(n int, mod int64) (powMod Matrix[int64], err error) {
+func (mat Matrix[T]) PowMod(n int64, mod int64) (powMod Matrix[int64], err error) {
 	xDim, yDim := mat.XDim(), mat.YDim()
 	if xDim != yDim {
 		return nil, ErrSquareMatrix
